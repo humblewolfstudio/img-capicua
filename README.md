@@ -2,6 +2,8 @@
 
 this package is used to upload, get and delete images from the [service](https://img.capicua.org.es)
 
+to use this package, you must create an account [here](https://img.capicua.org.es/register)
+
 ## Usage
 
 we import the CapicuaImager package and we set the *API_TOKEN* that we can get from [here](https://img.capicua.org.es/dashboard)
