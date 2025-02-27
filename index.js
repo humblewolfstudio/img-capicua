@@ -48,7 +48,7 @@ class CapicuaImager {
      * Uploads an image to the CapicuaImager API.
      *
      * @async
-     * @param {string} imageURI - The local URI of the image to upload.
+     * @param {Buffer} data - The local URI of the image to upload.
      * @returns {Promise<IMG>} A promise that resolves with the uploaded image details.
      * @throws {Error} If the upload fails.
      *
@@ -134,7 +134,7 @@ class CapicuaImager {
      *
      * @async
      * @param {string} id - The unique ID of the image.
-     * @returns {Promise<IMG>} A promise that resolves with the image details.
+     * @returns {Promise<{deleted: boolean}>} A promise that resolves with a boolean if the image was deleted.
      * @throws {Error} If the request fails.
      *
      * @example
