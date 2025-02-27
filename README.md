@@ -53,7 +53,7 @@ const imageInfo = async () => {
 
 ```
 
-### delete Image
+### delete image
 ```js
 
 import { CapicuaImager } from 'img-capicua';
@@ -69,3 +69,7 @@ const deleteImage = async () => {
 }
 
 ```
+
+### get image
+
+to get the image, make a get request to "https://img.capicua.org.es/api/file/{id}"
