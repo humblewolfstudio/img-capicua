@@ -4,17 +4,17 @@ this package is used to upload, get and delete images from the [service](https:/
 
 to use this package, you must create an account [here](https://img.capicua.org.es/register)
 
-## Installation
+## installation
 
 ```bash
 npm i img-capicua
 ```
 
-## Usage
+## usage
 
 we import the CapicuaImager package and we set the *API_TOKEN* that we can get from [here](https://img.capicua.org.es/dashboard)
 
-### Upload image
+### upload image
 ```js
 
 import { CapicuaImager } from 'img-capicua';
@@ -36,7 +36,7 @@ const uploadImage = async () => {
 
 ```
 
-### Information about image
+### information about image
 ```js
 
 import { CapicuaImager } from 'img-capicua';
@@ -53,7 +53,7 @@ const imageInfo = async () => {
 
 ```
 
-### Delete Image
+### delete Image
 ```js
 
 import { CapicuaImager } from 'img-capicua';
