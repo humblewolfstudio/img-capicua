@@ -2,7 +2,6 @@ const FormData = require('form-data');
 const fetch = require('node-fetch');
 const { Platform } = require("react-native");
 const uuid = require('react-native-uuid');
-const fs = require('fs');
 
 const BASE_URL = "https://img.capicua.org.es/api";
 
@@ -70,33 +69,19 @@ class CapicuaImager {
             let fileStream;
             let formData = new FormData();
 
-            if (Platform.OS === "ios" || Platform.OS === "android") {
-                if (typeof data === "string" && data.startsWith("file://")) {
-                    const response = await fetch(data);
-                    const blob = await response.blob();
-                    fileStream = blob;
-                } else if (typeof data === "string" && data.startsWith("data:image")) {
-                    const base64Response = await fetch(data);
-                    const blob = await base64Response.blob();
-                    fileStream = blob;
-                } else {
-                    throw new Error("Unsupported data format in React Native");
-                }
-
-                formData.append("file", fileStream, imageName);
+            if (typeof data === "string" && data.startsWith("file://")) {
+                const response = await fetch(data);
+                const blob = await response.blob();
+                fileStream = blob;
+            } else if (typeof data === "string" && data.startsWith("data:image")) {
+                const base64Response = await fetch(data);
+                const blob = await base64Response.blob();
+                fileStream = blob;
             } else {
-                const streamifier = require("streamifier");
-
-                if (Buffer.isBuffer(data)) {
-                    fileStream = streamifier.createReadStream(data);
-                } else if (typeof data === "string" && fs.existsSync(data)) {
-                    fileStream = fs.createReadStream(data);
-                } else {
-                    throw new Error("Unsupported data format in Node.js");
-                }
-
-                formData.append("file", fileStream, imageName);
+                throw new Error("Unsupported data format in React Native");
             }
+
+            formData.append("file", fileStream, imageName);
 
             formData.append("compressImage", compress ? "on" : "off");
             formData.append("webpImage", webp ? "on" : "off");
@@ -104,13 +89,6 @@ class CapicuaImager {
             let headers = {
                 Authorization: this.apiToken,
             };
-
-            if (Platform.OS !== "ios" && Platform.OS !== "android") {
-                headers = {
-                    ...headers,
-                    ...formData.getHeaders(),
-                };
-            }
 
             const response = await fetch(`${BASE_URL}/file/upload`, {
                 method: "POST",
