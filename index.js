@@ -1,6 +1,7 @@
 const FormData = require('form-data');
 const fetch = require('node-fetch');
 const { Platform } = require("react-native");
+const FileSystem = require('expo-file-system');
 const uuid = require('react-native-uuid');
 
 const BASE_URL = "https://img.capicua.org.es/api";
@@ -49,7 +50,7 @@ class CapicuaImager {
      * Uploads an image to the CapicuaImager API.
      *
      * @async
-     * @param {Buffer} data - The local URI of the image to upload.
+     * @param {String} uri - The local URI of the image to upload.
      * @returns {Promise<IMG>} A promise that resolves with the uploaded image details.
      * @throws {Error} If the upload fails.
      *
@@ -62,26 +63,19 @@ class CapicuaImager {
      *     console.error("Upload failed:", error);
      *   }
      */
-    uploadImage = async ({ data, compress = true, webp = false }) => {
+    uploadImage = async ({ uri, compress = true, webp = false }) => {
         try {
             const imageName = `${Platform.OS === "web" ? crypto.randomUUID() : uuid.v4()}.jpg`;
 
-            let fileStream;
-            let formData = new FormData();
+            const fileInfo = await FileSystem.getInfoAsync(uri);
 
-            if (typeof data === "string" && data.startsWith("file://")) {
-                const response = await fetch(data);
-                const blob = await response.blob();
-                fileStream = blob;
-            } else if (typeof data === "string" && data.startsWith("data:image")) {
-                const base64Response = await fetch(data);
-                const blob = await base64Response.blob();
-                fileStream = blob;
-            } else {
-                throw new Error("Unsupported data format in React Native");
-            }
+            const formData = new FormData();
 
-            formData.append("file", fileStream, imageName);
+            formData.append("file", {
+                uri: fileInfo.uri,
+                name: imageName,
+                type: 'image/jpeg'
+            });
 
             formData.append("compressImage", compress ? "on" : "off");
             formData.append("webpImage", webp ? "on" : "off");
