@@ -2,7 +2,7 @@ const FormData = require('form-data');
 const fetch = require('node-fetch');
 const { Platform } = require("react-native");
 const FileSystem = require('expo-file-system');
-const uuid = require('react-native-uuid');
+const { v4: uuidv4 } = require('uuid');
 
 const BASE_URL = "https://img.capicua.org.es/api";
 
@@ -65,7 +65,7 @@ class CapicuaImager {
      */
     uploadImage = async ({ uri, compress = true, webp = false }) => {
         try {
-            const imageName = `${Platform.OS === "web" ? crypto.randomUUID() : uuid.v4()}.jpg`;
+            const imageName = `${Platform.OS === "web" ? crypto.randomUUID() : uuidv4()}.jpg`;
 
             const fileInfo = await FileSystem.getInfoAsync(uri);
 
