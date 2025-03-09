@@ -2,6 +2,7 @@ const FormData = require('form-data');
 const fetch = require('node-fetch');
 const { Platform } = require("react-native");
 const FileSystem = require('expo-file-system');
+require('react-native-get-random-values');
 const { v4: uuidv4 } = require('uuid');
 
 const BASE_URL = "https://img.capicua.org.es/api";
