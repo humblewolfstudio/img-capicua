@@ -65,7 +65,7 @@ class CapicuaImager {
      */
     uploadImage = async ({ uri, compress = true, webp = false }) => {
         try {
-            const imageName = `${Platform.OS === "web" ? crypto.randomUUID() : uuidv4()}.jpg`;
+            const imageName = `${uuidv4()}.jpg`;
 
             const fileInfo = await FileSystem.getInfoAsync(uri);
 
