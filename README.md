@@ -22,10 +22,10 @@ import { CapicuaImager } from 'img-capicua';
 const uploadImage = async () => {
     const capicua = new CapicuaImager('your-api-token');
 
-    const data = ... // Buffer of image
+    const uri = ... // local uri of the image
 
     const options = {
-        data,
+        uri,
         compress: true,
         webp: false
     }
