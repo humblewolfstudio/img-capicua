@@ -1,6 +1,6 @@
 {
   "name": "img-capicua",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "expo-file-system": "^18.0.11",
-    "form-data": "^4.0.2",
+    "form-data": "^3.0.3",
     "node-fetch": "^2.7.0",
     "react-native": "^0.78.0",
     "react-native-uuid": "^2.0.3"
